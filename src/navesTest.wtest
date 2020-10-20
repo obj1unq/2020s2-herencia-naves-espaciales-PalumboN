@@ -25,7 +25,30 @@ describe "Nave de carga" {
 		naveLlena.recibirAmenaza()
 		assert.equals(0, naveVacia.carga())
 	}
+	
+	test "propulsar" {
+		naveVacia.propulsar()
+		assert.equals(20000, naveVacia.velocidad())
+	}
 
+}
+
+describe "Nave de Residuos" {
+
+	const naveDeResiduos = new NaveDeResiduos(carga = 5000, velocidad = 10000)
+	const naveQuieta = new NaveDeResiduos()
+	
+	test "Recibir amenaza" {
+		naveDeResiduos.recibirAmenaza()
+		assert.equals(0, naveDeResiduos.velocidad())
+		assert.equals(5000, naveDeResiduos.carga())
+	}
+	
+	test "Preparse para viajar" {
+		naveQuieta.prepararseParaViajar()
+		assert.equals(15000, naveQuieta.velocidad())
+		assert.that(naveQuieta.selladoAlVacio())
+	}
 }
 
 describe "Nave de pasajeros" {
@@ -52,6 +75,11 @@ describe "Nave de pasajeros" {
 	test "recibir amenaza" {
 		naveSinPasajeros.recibirAmenaza()
 		assert.that(naveSinPasajeros.alarma())
+	}
+	
+	test "propulsar" {
+		naveConPasajeros.propulsar()
+		assert.equals(300000, naveConPasajeros.velocidad())
 	}
 
 }
